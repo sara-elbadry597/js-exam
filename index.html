@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="loading position-fixed top-0 start-0 end-0 bottom-0 d-none z-2 bg-black justify-content-center align-items-center">
+        <i class="fa fa-spinner fa-spin fa-5x"></i>
+    </div>
+    <main>
+        <div class="side-nav top-0 bottom-0  position-fixed d-flex ">
+            <div class="nav-menu text-white min-vh-100 p-4 d-none flex-column justify-content-between">
+                <div class="links">
+                    <ul class="list-unstyled overflow-hidden">
+                        <li id="search">Search</li>
+                        <li id="Categories">Categories</li>
+                        <li id="Area">Area</li>
+                        <li id="Ingredients">Ingredients</li>
+                        <li id="Contact">Contact Us</li>
+                    </ul>
+                </div>
+                <div class="nav-footer">
+                    <div class="social-icons">
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <p>Copyright Â© 2019 All Rights <br>Reserved.</p>
+                </div>
+    
+            </div>
+            <div class="nav-header d-flex flex-column justify-content-between py-4 px-2 bg-white text-black top-0 bottom-0 ">
+                <img src="./logo.png" class="logo" alt="logo">
+               <div class="group-of-icons mx-auto">
+                <i class="fa-solid fa-x fa-2x close-btn mx-auto d-none "></i>
+                <i class="fa-solid fa-bars fa-2x mx-auto open-btn"></i>
+               </div>
+                <div class="icons mx-auto">
+                    <i class="fa-solid fa-globe d-block"></i>
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+            </div>
+        </div>
+        <div class="container w-75 d-none" id="searchContainer">
+            <div class="row py-4">
+                <div class="col-md-6">
+                    <input type="text" placeholder="Search By Name" class="form-control text-white bg-transparent" id="SearchByName">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Search By First Letter" class="form-control text-white bg-transparent" id="SearchByFirstLetter" maxlength="1">
+                </div>
+            </div>
+              <div class="row py-5 gy-4 position-relative" id="meals">
+                <div  class="min-vh-100">
+                    <div class="inner-loading-screen top-0 start-0 end-0 bottom-0 justify-content-center align-items-center d-none" >
+                        <i class="fa fa-spinner fa-spin fa-5x"></i>
+                    </div>
+                    
+                </div>
+              </div>
+        </div>
+        <div class="container">
+            <div class="row py-5 g-4" id="Data">
+            </div>
+        </div>
+       
+    </main>
+
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
