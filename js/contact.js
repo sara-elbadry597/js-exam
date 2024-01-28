@@ -1,6 +1,6 @@
 export class Contact{
     contactInfo(){
-        cartona=`<div class="contact min-vh-100 d-flex justify-content-center align-items-center">
+       let cartona=`<div class="contact min-vh-100 d-flex justify-content-center align-items-center">
         <div class="container w-75 text-center">
             <div class="row g-4">
                 <div class="col-md-6">
@@ -44,40 +44,45 @@ export class Contact{
         </div>
     </div>`
     document.getElementById("Data").innerHTML = cartona;
-    $("input").on("blur",function(){
-       this.validateData();
-    })}
-     validateData(){
-    let name = $("#nameInput").val();
-    let email = $("#emailInput").val();
-    let phone = $("#phoneInput").val();
-    let age = $("#ageInput").val();
-    let password = $("#passwordInput").val();
-    let repassword = $("#repasswordInput").val();
-    let regexName= /^[a-zA-z]+$/;
-    let regexPhone=/^01[0-25][0-9]{8}$/;
-    let regexPass= /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    let regexMail= /^[\w-]+(\.[\w-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
-    let regexAge =/^(?:[1-9][0-9]?|1\d{2})$/;
-    let isValidName = regexName.test(name);
-    let isValidEmail = regexMail.test(email);
-    let isValidPhone = regexPhone.test(phone);
-    let isValidAge = regexAge.test(age);
-    let isValidPassword = regexPass.test(password);
-    let isMatchingPassword = password === repassword;
+   $("input").on("blur", () => {
+            this.validateData();
+        })};
+         validateData() {
+            let name = $("#nameInput").val();
+            let email = $("#emailInput").val();
+            let phone = $("#phoneInput").val();
+            let age = $("#ageInput").val();
+            let password = $("#passwordInput").val();
+            let repassword = $("#repasswordInput").val();
+            let regexName = /^[a-zA-z]+$/;
+            let regexPhone = /^01[0-25][0-9]{8}$/;
+            let regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            let regexMail = /^[\w-]+(\.[\w-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
+            let regexAge = /^(?:[1-9][0-9]|[1-9])$/;
+        
+            let isValidName = regexName.test(name);
+            let isValidEmail = regexMail.test(email);
+            let isValidPhone = regexPhone.test(phone);
+            let isValidAge = regexAge.test(age);
+            let isValidPassword = regexPass.test(password);
+            let isMatchingPassword = password === repassword;
+        
+            // Show or hide alerts based on input validity
+            $("#nameAlert").toggleClass("d-none", isValidName);
+            $("#emailAlert").toggleClass("d-none", isValidEmail);
+            $("#phoneAlert").toggleClass("d-none", isValidPhone);
+            $("#ageAlert").toggleClass("d-none", isValidAge);
+            $("#passwordAlert").toggleClass("d-none", isValidPassword);
+            $("#repasswordAlert").toggleClass("d-none", isMatchingPassword);
+        
+            // Enable or disable submit button based on overall form validity
+            let isFormValid = isValidName && isValidEmail && isValidPhone && isValidAge && isValidPassword && isMatchingPassword;
+            $("#submitBtn").prop("disabled", !isFormValid);
+        
+            return isFormValid;
+        }
+        
 
-    $("#nameAlert").toggleClass("d-none", isValidName);
-    $("#emailAlert").toggleClass("d-none", isValidEmail);
-    $("#phoneAlert").toggleClass("d-none", isValidPhone);
-    $("#ageAlert").toggleClass("d-none", isValidAge);
-    $("#passwordAlert").toggleClass("d-none", isValidPassword);
-    $("#repasswordAlert").toggleClass("d-none", isMatchingPassword);
 
-    let isFormValid = isValidName && isValidEmail && isValidPhone && isValidAge && isValidPassword && isMatchingPassword;
-    $("#submitBtn").prop("disabled", !isFormValid);
-
-    return isFormValid;
-
-
-   }
+   
 }

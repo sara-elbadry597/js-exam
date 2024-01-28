@@ -3,20 +3,21 @@ import { Contact } from "./contact.js";
 let details= new Details();
 let info = new Contact();
 $(document).ready(function () {
-   $(".nav-header .open-btn").on("click", function () {
-    $(".side-nav").animate({ left: "0px" }, 500);
-    $(".nav-menu").removeClass("d-none").addClass("d-flex");
-    $(".open-btn").addClass("d-none");
-    $(".close-btn").removeClass("d-none").addClass("d-block");
-});
-
-$(".nav-header .close-btn").on("click", function () {
-    let navMenuWidth = $(".nav-menu").innerWidth();
-    $(".side-nav").animate({ left: -navMenuWidth }, 500, function () {
+$(".group-of-icons").on("click", function () {
+    if ($(".side-nav").css("left") == "0px") {
+        let navMenuWidth = $('.nav-menu').innerWidth();
+        $(".side-nav").animate({ left: `-${navMenuWidth}` }, 500);
+        $(".links ul").addClass("animate__animated animate__fadeOutDown");
         $(".open-btn").removeClass("d-none").addClass("d-block");
         $(".close-btn").removeClass("d-block").addClass("d-none");
-    });
+    } else {
+        $(".side-nav").animate({ left: "0px" }, 500);
+        $(".links ul").removeClass("animate__animated animate__fadeOutDown").addClass("animate__animated animate__fadeInUp");
+        $(".open-btn").addClass("d-none");
+        $(".close-btn").removeClass("d-none").addClass("d-block");
+    }
 });
+
 
     async function getApi() {
         $(".loading").removeClass("d-none").addClass("d-flex");
@@ -82,27 +83,26 @@ $(".nav-header .close-btn").on("click", function () {
         let res = await api.json();
         return res.meals;
     }
-    $("#SearchByName").on("keyup", async function (e) {
+    $("#SearchByName").on("keyup", async function () {
         $(".inner-loading-screen").removeClass("d-none").addClass("d-flex");
         let searchTerm = await SearchByName(this.value);
         displayRandomData(searchTerm, "meals");
         $(".inner-loading-screen").addClass("d-none");
-       
-    })
+        handleMealClick(); 
+    });
     
     $("#SearchByFirstLetter").on("keyup", async function () {
+        let input = this.value;
+        if (input.length > 1) {
+            input = input.charAt(0);
+            $(this).val(input);
+        }
         $(".inner-loading-screen").removeClass("d-none").addClass("d-flex");
-     let input= this.value;
-     if(input.length>1){
-      input = input.charAt(0);
-      $(this).val(input);
-     }
-     
-    let firstLetter = await SearchByLetter(input);
+        let firstLetter = await SearchByLetter(input);
         displayRandomData(firstLetter, "meals");
-       
-    })
-
+        $(".inner-loading-screen").addClass("d-none");
+        handleMealClick(); 
+    });
     // Categories
     async function displayCategories(data) {
         let container = '';
@@ -110,9 +110,9 @@ $(".nav-header .close-btn").on("click", function () {
             container += `<div class="col-md-3">
                             <div class="meal rounded-2 position-relative ">
                                 <img class="w-100" src="${data[i].strCategoryThumb}" alt="" srcset="">
-                                <div class="meal-layer position-absolute text-center text-white">
-                                    <h3>${data[i].strCategory}</h3>
-                                    <p>${data[i].strCategoryDescription}</p>
+                                <div class="meal-layer position-absolute text-center p-2">
+                                    <h3 class="text-black">${data[i].strCategory}</h3>
+                                    <p class="text-black">${data[i].strCategoryDescription}</p>
                                 </div>
                             </div>
                         </div>`;
@@ -269,8 +269,7 @@ $(".nav-header .close-btn").on("click", function () {
     // contact us
     $("#Contact").on("click", function() {
         $("#Data").removeClass("d-none");
-        info.contactInfo();
-        
+        info.contactInfo();    
         
 });
 
